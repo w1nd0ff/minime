@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MiniMe в Раменках</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Bad+Script&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+/* Layout: soft pastel family restaurant — powder-blue stripes, scalloped awning edge, arches, hot-air balloon lamps and clouds; two-age playroom, party planner, halal kitchen. */
+:root{
+  --bg:#F8F4EE;
+  --card:#FFFFFF;
+  --fg:#2D3A45;
+  --muted:#6C7680;
+  --line:#E5DED4;
+  --blue:#9DB7C6;
+  --sage:#8EA399;
+  --blush:#EBCFC5;
+  --wood:#C49A6C;
+  --display:"Comfortaa", system-ui, sans-serif;
+  --script:"Bad Script", cursive;
+  --body:"Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171C21;--card:#20262C;--fg:#EEF1F3;--muted:#A9B3BB;--line:#323A42;--blue:#7E9CAE;--sage:#7F978B;--blush:#B08C80;--wood:#C9A177;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171C21;--card:#20262C;--fg:#EEF1F3;--muted:#A9B3BB;--line:#323A42;--blue:#7E9CAE;--sage:#7F978B;--blush:#B08C80;--wood:#C9A177;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;line-height:1.15;text-wrap:balance}
+a{color:var(--fg)}
+:focus-visible{outline:3px solid var(--wood);outline-offset:3px}
+.demo{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+.demo .wrap{padding-block:7px}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:16px}
+.logo{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.02em}
+.logo span{font-family:var(--script);font-size:16px;color:var(--muted);display:block;line-height:1}
+.callbtn{text-decoration:none;font-weight:600;padding:10px 18px;border-radius:999px;background:var(--fg);color:var(--bg);font-variant-numeric:tabular-nums}
+
+/* awning */
+.awning{height:46px;background:repeating-linear-gradient(90deg,var(--blue) 0 34px,#FBF8F3 34px 68px);position:relative}
+.awning::after{content:"";position:absolute;left:0;right:0;bottom:-16px;height:16px;
+  background:radial-gradient(circle at 17px 0,var(--blue) 16px,transparent 17px) 0 0/68px 16px repeat-x,
+             radial-gradient(circle at 51px 0,#FBF8F3 16px,transparent 17px) 0 0/68px 16px repeat-x}
+
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center;padding-block:60px 56px}
+.script{font-family:var(--script);font-size:24px;color:var(--wood)}
+.hero h1{font-size:clamp(34px,5.4vw,60px);margin-top:6px}
+.lead{font-size:18px;color:var(--muted);max-width:32em;margin:16px 0 0}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{font:inherit;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:999px;border:2px solid var(--fg);color:var(--fg);background:none;cursor:pointer}
+.btn.solid{background:var(--fg);color:var(--bg)}
+.facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:24px}
+.facts b{display:block;font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
+.facts span{font-size:14px;color:var(--muted)}
+.arch{aspect-ratio:4/5;max-width:100%;width:100%;max-width:400px;justify-self:center;border-radius:220px 220px 22px 22px;
+  background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--blue) 45%,var(--bg)) 0 18px,var(--bg) 18px 36px);
+  border:10px solid var(--card);box-shadow:0 0 0 1px var(--line);display:grid;place-items:center;overflow:hidden}
+.arch svg{width:84%;height:auto}
+
+section{padding-block:60px}
+section + section{border-top:1px solid var(--line)}
+section h2{font-size:clamp(28px,4.2vw,44px)}
+.sub{color:var(--muted);max-width:40em;margin:10px 0 0}
+
+/* zones */
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.zone{background:var(--card);border:1px solid var(--line);border-radius:28px 28px 18px 18px;padding:22px;display:grid;gap:8px;align-content:start}
+.zone .tag{justify-self:start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:color-mix(in srgb,var(--blue) 30%,transparent)}
+.zone:nth-child(2) .tag{background:color-mix(in srgb,var(--blush) 55%,transparent)}
+.zone:nth-child(3) .tag{background:color-mix(in srgb,var(--sage) 35%,transparent)}
+.zone h3{font-size:21px}
+.zone p{margin:0;color:var(--muted);font-size:16px}
+
+/* party planner */
+.planner{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px;align-items:start}
+form{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:14px}
+label{display:grid;gap:6px;font-weight:600;font-size:15px}
+input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks button{font:inherit;font-size:15px;padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.checks button[aria-pressed="true"]{background:var(--sage);border-color:var(--sage);color:#fff}
+.note{background:color-mix(in srgb,var(--blush) 45%,var(--card));border-radius:24px;padding:24px;display:grid;gap:12px;min-width:0}
+.note pre{margin:0;white-space:pre-wrap;font-family:var(--body);font-size:16px;line-height:1.55}
+.fine{font-size:14px;color:var(--muted);margin:0}
+
+/* food */
+.food{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.dish{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:6px}
+.dish h3{font-size:17px}
+.dish p{margin:0;color:var(--muted);font-size:15px}
+.halal{display:inline-flex;gap:8px;align-items:center;margin-top:20px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--sage);font-weight:600}
+
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+blockquote{margin:0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}
+blockquote p{margin:0;font-family:var(--display);font-size:18px;line-height:1.4}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:14px;color:var(--muted)}
+
+.visit{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;margin-top:26px}
+dl{margin:0;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:110px 1fr;gap:12px}
+.row dt{color:var(--muted)}
+.row dd{margin:0;font-weight:600;min-width:0}
+.cloudcard{background:color-mix(in srgb,var(--blue) 35%,var(--card));border-radius:28px;padding:24px;display:grid;gap:10px}
+.cloudcard h3{font-size:24px}
+.cloudcard p{margin:0}
+.copy{font:inherit;font-size:13px;cursor:pointer;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;margin-left:8px}
+footer .wrap{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+
+@media (max-width:860px){.food{grid-template-columns:1fr 1fr}.zones,.quotes{grid-template-columns:1fr}}
+@media (max-width:700px){.hero .wrap,.planner,.visit{grid-template-columns:1fr}.arch{max-width:260px;order:-1}.row{grid-template-columns:96px 1fr}}
+@media (prefers-reduced-motion:no-preference){.balloon{animation:float 6s ease-in-out infinite}.balloon.b2{animation-delay:-3s}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="demo"><div class="wrap">Демо-версия сайта. Меню и цены добавляются после согласования с рестораном.</div></div>
+
+<header class="top"><div class="wrap">
+  <div class="logo">MiniMe<span>семейный ресторан</span></div>
+  <a class="callbtn" href="tel:+79290027779">+7 (929) 002-77-79</a>
+</div></header>
+<div class="awning" aria-hidden="true"></div>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="script">для детей и взрослых в Раменках</div>
+    <h1>Вкусный ужин для вас, большая игровая для детей</h1>
+    <p class="lead">Светлый семейный ресторан с двумя игровыми залами по возрасту, няней и экранами в обеденной зоне: ребёнок всегда на виду. Вся кухня халяльная.</p>
+    <div class="cta">
+      <a class="btn solid" href="#party">Спланировать праздник</a>
+      <a class="btn" href="tel:+79290027779">Забронировать стол</a>
+    </div>
+    <div class="facts">
+      <div><b>4,8</b><span>110 оценок</span></div>
+      <div><b>до 22:00</b><span>каждый день</span></div>
+      <div><b>2 зала</b><span>игровых по возрасту</span></div>
+    </div>
+  </div>
+  <div class="arch" role="img" aria-label="Арка с полосатыми стенами, воздушными шарами и облаками">
+    <svg viewBox="0 0 240 280">
+      <g class="balloon"><ellipse cx="80" cy="80" rx="34" ry="40" fill="#FBF8F3" stroke="#C49A6C" stroke-width="2"/><path d="M80 40 v80 M52 70 q28 14 56 0 M50 92 q30 12 60 0" fill="none" stroke="#C49A6C" stroke-width="1.5"/><path d="M66 118 L72 134 h16 l6 -16" fill="none" stroke="#C49A6C" stroke-width="1.5"/><rect x="70" y="134" width="20" height="12" rx="3" fill="#C49A6C"/></g>
+      <g class="balloon b2"><ellipse cx="170" cy="120" rx="26" ry="31" fill="#EBCFC5" stroke="#C49A6C" stroke-width="2"/><path d="M170 89 v62" fill="none" stroke="#C49A6C" stroke-width="1.5"/><rect x="162" y="162" width="16" height="10" rx="3" fill="#C49A6C"/><path d="M158 150 L162 162 M182 150 L178 162" stroke="#C49A6C" stroke-width="1.5"/></g>
+      <g fill="#FFFFFF" opacity=".95"><ellipse cx="60" cy="210" rx="34" ry="14"/><ellipse cx="82" cy="200" rx="22" ry="16"/><ellipse cx="180" cy="40" rx="26" ry="10"/><ellipse cx="196" cy="32" rx="16" ry="12"/></g>
+      <path d="M0 250 Q60 236 120 250 T240 250 V280 H0 Z" fill="#8EA399" opacity=".55"/>
+    </svg>
+  </div>
+</div></div>
+
+<section id="zones"><div class="wrap">
+  <h2>Как всё устроено</h2>
+  <p class="sub">Пространство поделено на зоны, поэтому здесь спокойно и с малышом, и без детей.</p>
+  <div class="zones">
+    <div class="zone"><span class="tag">для малышей</span><h3>Мягкая игровая</h3><p>Бассейн с шариками, мягкие модули и игрушки для самых маленьких.</p></div>
+    <div class="zone"><span class="tag">для старших</span><h3>Горки и лабиринт</h3><p>Горки, сетки на канатах и детская кухня. С детьми занимается няня.</p></div>
+    <div class="zone"><span class="tag">для родителей</span><h3>Обеденный зал</h3><p>Экраны с видом на игровую, детская дверь в туалет и кнопка вызова официанта.</p></div>
+  </div>
+</div></section>
+
+<section id="party"><div class="wrap">
+  <h2>Праздник под ключ</h2>
+  <p class="sub">Менеджер поможет с банкетом, аниматором, украшением зала и тортом. Расскажите, что планируете, и мы соберём заявку.</p>
+  <div class="planner">
+    <form id="pForm" novalidate>
+      <label>Имя именинника<input type="text" id="pName" placeholder="Например, Алиса"></label>
+      <div class="two">
+        <label>Исполняется лет<input type="number" id="pAge" min="1" max="18" value="5"></label>
+        <label>Дата<input type="date" id="pDate"></label>
+      </div>
+      <div class="two">
+        <label>Детей<input type="number" id="pKids" min="1" max="40" value="8"></label>
+        <label>Взрослых<input type="number" id="pAdults" min="0" max="60" value="10"></label>
+      </div>
+      <div><span style="font-weight:600;font-size:15px" id="extLbl">Добавить</span>
+        <div class="checks" role="group" aria-labelledby="extLbl" id="extras" style="margin-top:6px">
+          <button type="button" id="e1" aria-pressed="true">Аниматор</button>
+          <button type="button" id="e2" aria-pressed="true">Украшение зала</button>
+          <button type="button" id="e3" aria-pressed="false">Торт</button>
+          <button type="button" id="e4" aria-pressed="false">Детское меню</button>
+        </div></div>
+    </form>
+    <div class="note">
+      <strong>Заявка на праздник</strong>
+      <pre id="pMsg" aria-live="polite"></pre>
+      <div class="cta" style="margin-top:0">
+        <a class="btn solid" id="waBtn" href="https://wa.me/79290027779" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+        <button class="btn" type="button" id="pCopy">Скопировать</button>
+      </div>
+      <p class="fine">Или позвоните: +7 (929) 002-77-79</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="food"><div class="wrap">
+  <h2>Кухня</h2>
+  <p class="sub">Большое меню для взрослых и отдельное детское. Блюда, которые гости хвалят в отзывах:</p>
+  <div class="food">
+    <div class="dish"><h3>Чуду с мясом</h3><p>Дагестанская лепёшка с начинкой.</p></div>
+    <div class="dish"><h3>Оливье</h3><p>Классика, которую заказывают все.</p></div>
+    <div class="dish"><h3>Бургер с картошкой фри</h3><p>Любимое блюдо детей.</p></div>
+    <div class="dish"><h3>Айс-урбеч</h3><p>Фирменный холодный напиток.</p></div>
+  </div>
+  <div class="halal">Вся кухня халяльная</div>
+</div></section>
+
+<section id="reviews"><div class="wrap">
+  <h2>Что говорят родители</h2>
+  <div class="quotes">
+    <blockquote><p>«Неприлично крутое место! Однозначно рекомендую сюда с ребёнком»</p><cite>Екатерина, Яндекс Карты</cite></blockquote>
+    <blockquote><p>«Ребёнок всегда на виду: либо из-за стола, либо на экранах»</p><cite>Луиза, Яндекс Карты</cite></blockquote>
+    <blockquote><p>«Все заботы о празднике она взяла на себя»</p><cite>Майя, о менеджере, Яндекс Карты</cite></blockquote>
+  </div>
+</div></section>
+
+<section id="visit"><div class="wrap">
+  <h2>Как нас найти</h2>
+  <div class="visit">
+    <dl>
+      <div class="row"><dt>Адрес</dt><dd>Москва, Винницкая ул., 8, корп. 1</dd></div>
+      <div class="row"><dt>Метро</dt><dd>Раменки, около 7 минут пешком</dd></div>
+      <div class="row"><dt>Часы</dt><dd>Открыто до 22:00</dd></div>
+      <div class="row"><dt>Телефон</dt><dd>+7 (929) 002-77-79<button class="copy" id="copyPhone" type="button">Скопировать</button></dd></div>
+      <div class="cta" style="margin-top:4px"><a class="btn" href="https://yandex.ru/maps/org/minime/207302721294/" target="_blank" rel="noopener">Маршрут</a></div>
+    </dl>
+    <div class="cloudcard">
+      <h3>Оплата игровой</h3>
+      <p>Время в игровой оплачивается отдельно по тарифу. Официант уточнит, сколько вы планируете провести, а точные цены расскажем по телефону.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>MiniMe · Винницкая, 8 к1 · Раменки</span><span>Демо-версия сайта</span></div></footer>
+
+<script>
+function fmt(d){if(!d)return'дата уточняется';var p=d.split('-');return p[2]+'.'+p[1]+'.'+p[0]}
+function build(){
+  var n=document.getElementById('pName').value.trim(),age=document.getElementById('pAge').value;
+  var ex=[].filter.call(document.querySelectorAll('#extras button'),function(b){return b.getAttribute('aria-pressed')==='true'}).map(function(b){return b.textContent.toLowerCase()});
+  var t='Здравствуйте! Хотим отметить день рождения в MiniMe.\n'+(n?'Именинник: '+n+', ':'')+(age?age+' лет':'')+'\nДата: '+fmt(document.getElementById('pDate').value)+
+    '\nДетей: '+(document.getElementById('pKids').value||'—')+', взрослых: '+(document.getElementById('pAdults').value||'—')+(ex.length?'\nНужно: '+ex.join(', '):'');
+  document.getElementById('pMsg').textContent=t;
+  document.getElementById('waBtn').href='https://wa.me/79290027779?text='+encodeURIComponent(t);
+}
+['pName','pAge','pDate','pKids','pAdults'].forEach(function(id){document.getElementById(id).addEventListener('input',build)});
+document.querySelectorAll('#extras button').forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');build()})});
+document.getElementById('pForm').addEventListener('submit',function(e){e.preventDefault()});
+function copy(btn,text){try{navigator.clipboard.writeText(text).then(function(){btn.textContent='Скопировано'},function(){btn.textContent='Выделите текст вручную'})}catch(e){btn.textContent='Выделите текст вручную'}}
+document.getElementById('pCopy').addEventListener('click',function(e){copy(e.currentTarget,document.getElementById('pMsg').textContent)});
+document.getElementById('copyPhone').addEventListener('click',function(e){copy(e.currentTarget,'+79290027779')});
+build();
+</script>
+
+</body>
+</html>
